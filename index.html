@@ -6,13 +6,15 @@
     <title>contando a sorte</title>
 </head>
 <body>
-    <h1>Counting Sort</h1>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    
+    <h1>Counting Sort Animation</h1>
     <label for="inputArray">Insira os números do array (separados por vírgula):</label>
     <input type="text" id="inputArray">
-    <button id="sortButton">Ordenar</button>
-    <div id="originalArray">Array Original:</div>
-    <div id="sortedArray">Array Ordenado:</div>
-    <script src="script.js"></script>
+    <button id="showArrayButton">Mostrar Array</button>
+    <button id="sortButton" style="display: none;">Iniciar Ordenação</button>
+    <div class="bar-container" id="visualizationContainer"></div>
     
 </body>
 </html>

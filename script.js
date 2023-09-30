@@ -1,42 +1,71 @@
-// Função para realizar o Counting Sort
-function countingSort(arr) {
-    const max = Math.max(...arr);
-    const min = Math.min(...arr);
 
-    const countingArray = new Array(max - min + 1).fill(0);
-    const sortedArray = [];
+async function displayArray(arr) {
+    const container = document.getElementById("visualizationContainer");
+    container.innerHTML = "";
 
     for (let i = 0; i < arr.length; i++) {
-        countingArray[arr[i] - min]++;
+        const div = document.createElement("div");
+        div.classList.add("bar");
+        div.style.height = `${arr[i] * 10}px`;
+        div.textContent = arr[i];
+        container.appendChild(div);
+        await sleep(100);
     }
 
+    const sortButton = document.getElementById("sortButton");
+    sortButton.style.display = "block";
+}
+
+async function animateCountingSort(arr) {
+    const max = Math.max(...arr);
+    const countingArray = new Array(max + 1).fill(0);
+
+    const container = document.getElementById("visualizationContainer");
+    const bars = container.getElementsByClassName("bar");
+
+    for (let i = 0; i < arr.length; i++) {
+        countingArray[arr[i]]++;
+    }
+
+    let index = 0;
     for (let i = 0; i < countingArray.length; i++) {
-        while (countingArray[i] > 0) {
-            sortedArray.push(i + min);
-            countingArray[i]--;
+        for (let j = 0; j < countingArray[i]; j++) {
+            await highlightBar(bars[index]);
+            bars[index].style.height = `${i * 10}px`;
+            bars[index].textContent = i;
+            await sleep(100);
+            index++;
         }
     }
 
-    return sortedArray;
+    // Reset the highlighting
+    for (let i = 0; i < bars.length; i++) {
+        bars[i].classList.remove("highlighted");
+    }
 }
 
-// Função para exibir o resultado na página HTML
-function displayResult(originalArray, sortedArray) {
-    const originalArrayElement = document.querySelector("#originalArray");
-    const sortedArrayElement = document.querySelector("#sortedArray");
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    originalArrayElement.textContent = `Array Original: [${originalArray.join(", ")}]`;
-    sortedArrayElement.textContent = `Array Ordenado: [${sortedArray.join(", ")}]`;
+function highlightBar(bar) {
+    return new Promise(resolve => {
+        bar.classList.add("highlighted");
+        setTimeout(() => {
+            bar.classList.remove("highlighted");
+            resolve();
+        }, 100);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    const showArrayButton = document.querySelector("#showArrayButton");
     const sortButton = document.querySelector("#sortButton");
 
-    sortButton.addEventListener("click", () => {
+    showArrayButton.addEventListener("click", async () => {
         const inputArrayElement = document.querySelector("#inputArray");
         const inputArrayValue = inputArrayElement.value;
 
-        // Converte a entrada do usuário em um array de números
         const originalArray = inputArrayValue.split(",").map(item => parseInt(item.trim(), 10));
 
         if (originalArray.some(isNaN)) {
@@ -44,8 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const sortedArray = countingSort(originalArray.slice()); // Realiza a ordenação
-
-        displayResult(originalArray, sortedArray);
+        await displayArray(originalArray.slice());
     });
-}); 
+
+    sortButton.addEventListener("click", async () => {
+        const inputArrayElement = document.querySelector("#inputArray");
+        const inputArrayValue = inputArrayElement.value;
+
+        const originalArray = inputArrayValue.split(",").map(item => parseInt(item.trim(), 10));
+
+        if (originalArray.some(isNaN)) {
+            alert("Por favor, insira números válidos separados por vírgula.");
+            return;
+        }
+
+        await animateCountingSort(originalArray.slice());
+    });
+});

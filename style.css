@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+.bar-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+.bar {
+    width: 30px;
+    margin: 0 2px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100px;
+    transition: height 0.3s;
+}
+.highlighted {
+    background-color: red;
+}
+.counter {
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 2px;
+    display: inline-block;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+.counter.highlighted {
+    background-color: red;
+}
