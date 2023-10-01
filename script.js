@@ -38,7 +38,7 @@ async function animateCountingSort(arr) {
         }
     }
 
-    // Reset the highlighting
+    // Irá fazer o resete highlighting
     for (let i = 0; i < bars.length; i++) {
         bars[i].classList.remove("highlighted");
     }

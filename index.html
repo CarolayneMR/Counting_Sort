@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>contando a sorte</title>
-</head>
-<body>
+
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-    
-    <h1>Counting Sort Animation</h1>
-    <label for="inputArray">Insira os números do array (separados por vírgula):</label>
-    <input type="text" id="inputArray">
-    <button id="showArrayButton">Mostrar Array</button>
-    <button id="sortButton" style="display: none;">Iniciar Ordenação</button>
-    <div class="bar-container" id="visualizationContainer"></div>
-    
+</head>
+<body>
+    <h1>🃏 Counting Sort</h1>
+    <div class="input-container">
+        <div class="label-container">
+            <label for="inputArray">Insira os números do array:</label>
+        </div>
+        <div class="input-button-container">
+            <input class="inputInsert" type="text" id="inputArray" placeholder="Separe por vírgula">
+            <button class="showbtn" id="showArrayButton">Mostrar Array</button>
+        </div>
+    </div>
+    <div class="sortingbox">
+        <button class="sortbtn" id="sortButton">Iniciar Ordenação</button>
+        <div class="sorting" id="visualizationContainer">
+            Resultado ficar aqui
+        </div> 
+    </div>
 </body>
+<footer>
+    <b>Desenvolvido por ©</b> Kerou e Ian
+</footer>
 </html>
